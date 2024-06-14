@@ -1,0 +1,42 @@
+{% extends 'Base/Base.html' %}
+{% load static %}
+{% block title %} Updata Experience {% endblock %}
+
+{% block reference %}
+    <link rel="stylesheet" href= "{% static 'adminpanal/css/adminpanal.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+
+         <form method="post" class="mt-3 pt-3 mb-5 pb-5" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col-md-8">
+                 <h4 class="alert alert-info">Add Blog</h4>
+                <label>Enter Blog title</label>
+                <input type="text" class="form-control" placeholder="Enter title" name="title" required>
+            </div>
+
+            <div class="col-md-8">
+                {{form.media}}
+                {{form.as_p}}
+            </div>
+
+            <div class="col-md-8">
+
+                <input type="file" name="image" class="form-control" required>
+                </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">Create Blog</button>
+
+    </form>
+    </div>
+{% endblock content %}
+
+{% block scripttab %}
+{% endblock %}

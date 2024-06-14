@@ -1,0 +1,56 @@
+{% extends 'Base/Base.html' %}
+{% load static %}
+{% block title %} Updata Experience {% endblock %}
+
+{% block reference %}
+	<link rel="stylesheet" type="text/css" href="{% static 'Registration/Css/font-awesome.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-3 mt-5">
+                <div class="text-center">
+                    <img src="{% static 'GetInTouch/image/kiranmam.png' %}" class=" w-50 img-fluid rounded-circle" alt="MyImg">
+                    <h2>Kiran Shinde</h2>
+                </div>
+
+            </div>
+            <div class="offset-1 col-sm-8">
+                <form class="form-control my-5 " method="POST" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="Name">Name*</label>
+                        <input type="text" class="form-control" style="background-color:#dee3e0;" name="Name" id="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ContactNo">ContactNo*</label>
+                        <input type="text" class="form-control" style="background-color:#dee3e0;" name="ContactNo" id="ContactNo" placeholder="" required>
+                        <small class="form-text text-muted"> (Please Enter valid Contact No. for further Communication )</small>
+                     </div>
+                     <div class="form-group">
+                        <label for="Email">Email*</label>
+                        <input type="email" class="form-control" style="background-color:#dee3e0;" name="Email" id="Email" placeholder="name@example.com" required>
+                        <small class="form-text text-muted"> (Please Enter valid EmailId for further Communication )</small>
+                     </div>
+
+                      <div class="form-group">
+                          <label for="MeetingTime">Date*</label>
+                          <input type="datetime-local" class="form-control"style="background-color:#dee3e0;" id="MeetingTime" name="MeetingTime" value="" min="" max="" required>
+                          <small class="form-text text-muted"> (select Prefer DateTime)</small>
+                      </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Message*</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="Message" required></textarea>
+                    </div>
+                    <div class="form-group text-right">
+                        <input type ="submit" class="btn btn-primary px-3" name="Book Appointment" value="Book Appointment">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripttab %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'Base/Base.html' %}
+{% load static %}
+{% block title %} Updata Experience {% endblock %}
+
+{% block reference %}
+	<link rel="stylesheet" type="text/css" href="{% static 'Registration/Css/font-awesome.min.css' %}">
+{% endblock %}
+
+{% block content %}
+        {% if messages %}
+            {% for message in messages %}
+                <script>
+
+                </script>
+                <p {% if message.tags %} class="alert alert-{{message.tags}} mt-5"{%endif%}>{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    <div class="container mt-5">
+        <h1 class="pt-4">Send me a message</h1>
+         <form class="form-control" method="POST" action="{% url 'BookAppointment_Page' %}">
+             {% csrf_token %}
+            <div class="form-group">
+                <label for="Name">Name*</label>
+                <input type="text" class="form-control" style="background-color:#dee3e0;" id="Name" name="Name" required>
+            </div>
+             <div class="form-group">
+                <label for="EmailId">Email*</label>
+                <input type="email" class="form-control" style="background-color:#dee3e0;" name="EmailId" id="EmailId" placeholder="name@example.com" required>
+             </div>
+            <div class="form-group">
+                <label for="Message">Message*</label>
+                <textarea class="form-control" style="background-color:#dee3e0;" name="Message" id="Message" rows="3" required></textarea>
+            </div>
+            <div class="form-group text-right">
+                <input type="submit" class="btn btn-primary px-3" value="Send">
+            </div>
+        </form>
+
+    </div>
+    <div class="jumbotron jumbotron-fluid mt-4">
+          <div class="container">
+            <h1 class="display-5">Get an appointment</h1>
+            <p class="lead mt-3">I’m happy to talk with people via phone or Skype. However, for these short calls I don’t like to set up appointments via email. Instead, please use the scheduler to set up an appointment. (Click the button below.)
+            <br><br>
+            I hope you can find a 15-minute period that works for you. As you sign up, please tell me briefly what you want to talk about.
+            </p>
+             <hr class="my-4">
+             <div>
+                 <a href="{% url 'BookAppointment_Page' %}" class="btn btn-dark px-3">Book Appointment</a>
+            </div>
+          </div>
+        </div>
+{% endblock content %}
+
+{% block scripttab %}
+{% endblock %}

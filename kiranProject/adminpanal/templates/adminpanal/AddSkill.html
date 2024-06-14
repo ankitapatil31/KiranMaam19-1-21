@@ -1,0 +1,206 @@
+{% extends 'Base/Base.html' %}
+{% load static %}
+{% block title %} Add Profile Details {% endblock %}
+
+{% block reference %}
+    <link rel="stylesheet" href= "{% static 'adminpanal/css/adminpanal.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5" >
+        <div class="row">
+                <div class="col-md-4">
+                    <h4 class="alert alert-info my-3">Add Record</h4>
+                    <form id="addSkill" action="">
+                      <div class="form-group">
+                        <input class="form-control" type="text" name="skill" placeholder="Skill" required>
+                      </div>
+                      <div class="form-group">
+                        <input class="form-control" type="number" name="rateing" min="50" max="100" placeholder="Rateing" required>
+                      </div>
+                      <button class="btn btn-primary form-control" type="submit">SUBMIT</button>
+                    </form>
+                </div>
+                <div class="col-md-8">
+                    <h4 class="alert alert-info my-3">View Record</h4>
+                    {% if skillset %}
+                        <table id="skillTable" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Skills</th>
+                                <th scope="col">Rating</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for skill in skillset %}
+                            <tr id="skill-{{skill.id}}">
+                                <td class=" skillName skillData">{{skill.Skill}} </td>
+                                <td class=" skillRateing skillData">{{ skill.Rateing }}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm mb-1" onClick="editSkill('{{ skill.id }}')" data-toggle="modal"
+                                            data-target="#myModal" value="{{ skill.id }}" id="editbtn" )>EDIT</button>
+
+                                    <button class="btn btn-danger btn-sm" onClick="deleteSkill({{skill.id}})">DELETE</button>
+                                </td>
+                            </tr>
+                            {% endfor%}
+                        </tbody>
+                    </table>
+
+                    {% else %}
+
+                    {% endif %}
+                </div>
+            </div>
+    </div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        </div>
+        <form id="updateSkill" action="" method="">
+        <div class="modal-body">
+            <input class="form-control" id="form-id" type="hidden" name="formId"/>
+            <label >Skill</label>
+            <input class="form-control" id="form-skill" type="text" name="formSkill"/>
+            <label >Rating on Skill</label>
+            <input class="form-control" id="form-rateing" type="text" name="formRateing"/>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block scripttab %}
+<script type="text/javascript">
+    function EnableDisableTextBox(curtly_working) {
+        var curtly_working = document.getElementById("curtly_working");
+        todate.disabled = curtly_working.checked ? true : false;
+    }
+</script>
+
+<script>
+   $("form#addSkill").submit(function() {
+    var skillInput = $('input[name="skill"]').val().trim();
+    var rateingInput = $('input[name="rateing"]').val().trim();
+
+    if (skillInput && rateingInput) {
+        // Create Ajax Call
+        $.ajax({
+            url: '{% url "crud_ajax_create" %}',
+            data: {
+                'skill': skillInput,
+                'rateing': rateingInput,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.skill) {
+                  appendToSkillTable(data.skill);
+                  location.reload();
+                }
+            }
+        });
+      } else {
+        alert("All fields must have a valid value.");
+    }
+    $('form#addSkill').trigger("reset");
+    return false;
+});
+
+function appendToSkillTable(skill) {
+  $("#skillTable > tbody:last-child").append(`
+        <tr id="skill-${skill.id}">
+            <td class="skillName" name="skill">${skill.skill}</td>
+            '<td class="skillRateing" name="Rateing">${skill.rateing}</td>
+            '<td>
+                <button class="btn btn-warning btn-sm " onClick="editSkill('{{ skill.id }}')" data-toggle="modal"
+                    data-target="#myModal" value="{{ skill.id }}" id="editbtn" )>EDIT</button>
+
+                <button class="btn btn-danger btn-sm" onClick="deleteSkill({{skill.id}})">DELETE</button>
+            </td>
+        </tr>
+    `);
+}
+
+$("form#updateSkill").submit(function() {
+    var idInput = $('input[name="formId"]').val().trim();
+    var skillInput = $('input[name="formSkill"]').val().trim();
+    var rateingInput = $('input[name="formRateing"]').val().trim();
+    if (skillInput && rateingInput) {
+        // Create Ajax Call
+        $.ajax({
+            url: '{% url "crud_ajax_update" %}',
+            data: {
+                'id': idInput,
+                'skill': skillInput,
+                'rateing': rateingInput,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.skill) {
+                  updateToSkillTabel(data.skill);
+                  location.reload();
+                }
+            }
+        });
+       } else {
+        alert("All fields must have a valid value.");
+    }
+    $('form#updateSkill').trigger("reset");
+    $('#myModal').modal('hide');
+    return false;
+});
+
+// Update Django Ajax Call
+function editSkill(id) {
+  if (id) {
+    tr_id = "#skill-" + id;
+    skill = $(tr_id).find(".skillName").text();
+    rateing = $(tr_id).find(".skillRateing").text();
+    $('#form-id').val(id);
+    $('#form-skill').val(skill);
+    $('#form-rateing').val(rateing);
+  }
+}
+function updateToSkillTabel(skill){
+    $("#skillTable #skill-" + skill.id).children(".userData").each(function() {
+        var attr = $(this).attr("name");
+        if (attr == "skill") {
+          $(this).text(skill.skill);
+        } else if (attr == "rateing") {
+          $(this).text(skill.rateing);
+        }
+      });
+}
+
+
+// Delete Django Ajax Call
+function deleteSkill(id) {
+  var action = confirm("Are you sure you want to delete this user?");
+  if (action != false) {
+    $.ajax({
+        url: '{% url "crud_ajax_delete" %}',
+        data: {
+            'id': id,
+        },
+        dataType: 'json',
+        success: function (data) {
+            if (data.deleted) {
+              $("#userTable #skill-"+id).remove();
+              location.reload();
+            }
+        }
+    });
+  }
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'Base/Base.html' %}
+{% load static %}
+{% block title %} Updata Experience {% endblock %}
+
+{% block reference %}
+	<link rel="stylesheet" type="text/css" href="">
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+
+        <div class="pt-5">
+            <marquee direction="right">
+               <a href="http://mitraupakram.vridhamma.org/">http://mitraupakram.vridhamma.org/</a>
+            </marquee>
+        </div>
+
+        <div class=" py-5">
+            <nav>
+          <div class="nav nav-tabs " id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Mitra Coordinator</a>
+            <a class="nav-item nav-link" id="nav-Image-tab" data-toggle="tab" href="#nav-Image" role="tab" aria-controls="nav-Image" aria-selected="false">Photos</a>
+            <a class="nav-item nav-link" id="nav-Video-tab" data-toggle="tab" href="#nav-Video" role="tab" aria-controls="nav-Video" aria-selected="false">Video</a>
+            <!--<a class="nav-item nav-link" id="nav-Audio-tab" data-toggle="tab" href="#nav-Audio" role="tab" aria-controls="nav-Audio" aria-selected="false">Audio</a> -->
+          </div>
+        </nav>
+
+          <div class="tab-content pl-3" id="nav-tabContent">
+
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-sm-7">
+                              <p class="py-3"  style="text-align: justify;">
+                                <b>MITRA Upakram </b>is an initiative of <b>Government of Maharashtra </b>of facilitate wholesome mental growth of school childern. MITRA Upakram undertake to inculcate
+                                right awareness aims to address 2.5 crore school children and 1 Lakh school teaachers. MITRA, which stands for <b> MIND IN TRAINING for RIGHT AWARENESS </b> also mean FRIEND in English Language.
+                                <br><br>
+                                The participants learn to observe the incoming breath and outgoing breath by focusing their attention at the entrance of their nostrils. they simply observe their natural breath without trying to change or correct the flow of the breath.
+                                In this way,they experience the beginning steps of self-awarness. This technique being observation based and scientific, without any imsgination or evsluation,leads to Right Awareness and hence right concentration. this technique is known as Anapana, where "Ana" means incoming and "Apana" means out going breath.
+                              </p>
+                          </div>
+
+                            <div class="col-sm-5">
+                            <img src="{% static 'Coordinator/image/meditation.jfif' %}" class="img-fluid py-3" height="auto" alt="Responsive image">
+                          </div>
+                          <p>
+                              MITRA Upakram provides a tool which can liberates the mind from various barriers like anxiety, anger, haterd, lack of concentration, doubts, laziness, greed, restlessness etc. A simple formate of delivery has been chosen with the support of Vipassana Research Institute(VRI),where after an initial training of 70 mins. the school chidren can practice this technique daily for 10 min before starting of school and repeat the practice for 10 mins before leaving for home.
+                          </p>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="tab-pane fade " id="nav-Image" role="tabpanel" aria-labelledby="nav-Image-tab">
+                 <div class="row mx-auto my-3">
+                   {% for photo in obj %}
+                     <div class="card mx-auto mb-3" style="width: 18rem;">
+                      <img  height="300" class="card-img-top" src="{{ photo.image.url }}" alt="">
+                         <div class="container-fluid" style="">
+                             <div class="card-body">
+                              <h4 class="card-title"> {{ photo.title }}</h4>
+                              <!--<p class="card-text"> {{ photo.description }}</p>-->
+                             </div>
+                         </div>
+                    </div>
+                    {% endfor %}
+                 </div>
+              </div>
+
+              <div class="tab-pane fade" id="nav-Video" role="tabpanel" aria-labelledby="nav-Video-tab">
+                  <div class="row">
+                      <div class="col-sm-5">
+                          <div class="embed-responsive embed-responsive-4by3 h-75 ">
+                              <iframe class="embed-responsive-item py-3"  src="https://www.youtube.com/embed/RY7fJgCMgvY" title="YouTube video player" frameborder="0"  allowfullscreen></iframe>
+                          </div>
+                      </div>
+                       <div class="col-sm-5">
+                          <div class="embed-responsive embed-responsive-4by3 h-75 ">
+                              <iframe class="embed-responsive-item py-3"  src="https://www.youtube.com/embed/RY7fJgCMgvY" title="YouTube video player" frameborder="0"  allowfullscreen></iframe>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+
+              <div class="tab-pane fade" id="nav-Audio" role="tabpanel" aria-labelledby="nav-Audio-tab">
+            <div class="row">
+                <div class="col-sm-4 py-3">
+                    <audio controls>
+                      <source src="horse.ogg" type="audio/ogg">
+                      <source src="horse.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripttab %}
+{% endblock %}

@@ -1,0 +1,38 @@
+
+   .card {
+    border: 0;
+    border-radius: .1875rem;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 25px 0 rgba(0,0,0,.2);
+}
+    .profile-image,.page-header{
+        min-height: 600px;
+    }
+    .page-header{
+        height: 70vh;
+        max-height: 1100px;
+    }
+    .profile-image{
+        background: linear-gradient(rgba(44,44,44,0.2), rgba(73, 160, 81, 0.6)), url("bg9.jpg");;
+        max-height: 70vh;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .cc-profile-image img:hover{
+    transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+
+
+
+    .progress-container .progress-bar {
+    height: 5px;
+    transform: scaleX(0);
+    transition: transform 2s ease-in-out;
+    transform-origin: 0% 0%;
+}

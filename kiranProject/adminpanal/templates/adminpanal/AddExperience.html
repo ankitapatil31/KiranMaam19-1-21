@@ -1,0 +1,66 @@
+{% extends 'Base/Base.html' %}
+{% load static %}
+{% block title %} Add Profile Details {% endblock %}
+
+{% block reference %}
+    <link rel="stylesheet" href= "{% static 'adminpanal/css/adminpanal.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5" >
+        <div class="row pt-4">
+            <div class="col-md-4">
+                <h4 class="alert alert-info">Add Record</h4>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{Experience_form.as_p}}
+                    <input type="submit" class="btn btn-primary btn-sm">
+                </form>
+            </div>
+            <div class="col-md-8">
+               <h4 class="alert alert-info">View Record</h4>
+
+                {% if experiences %}
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Organization Name</th>
+                            <th scope="col">Designation</th>
+                            <th scope="col"> Joining Date</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for experience in experiences %}
+                        <tr>
+                            <td>{{experience.organization_name}} </td>
+                            <td>{{ experience.designation }}</td>
+                            <td>{{ experience.formDate }}</td>
+                            <td>{{ experience.description }}</td>
+                            <td><a href="{% url 'update_experience' experience.id %}" class="btn btn-warning btn-sm my-3">Edit</a>
+                                <form class="d-inline" action="{% url 'delete_experience'  experience.id %}" method="POST">
+                                   {% csrf_token %}
+                                    <input type="submit" value="delete" class="btn btn-danger btn-sm">
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor%}
+                    </tbody>
+                </table>
+                {% else %}
+                      <h3>NO Record Found</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripttab %}
+<script type="text/javascript">
+    function EnableDisableTextBox(curtly_working) {
+        var curtly_working = document.getElementById("curtly_working");
+        todate.disabled = curtly_working.checked ? true : false;
+    }
+</script>
+{% endblock %}

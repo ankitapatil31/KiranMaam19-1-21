@@ -1,0 +1,96 @@
+
+{% extends 'admin_blog/BlogBase.html' %}
+{% load static %}
+{%block stylecontent %}
+<style>
+    .btn-primary{
+    background-color:#2975f0s;
+    }
+</style>
+<script>
+    function mytogglefun()
+    {
+    alter("hii");
+        var x = document.getElementById("Filterdiv");
+        if(if.style.display==="none")
+        {
+            x.style.display="block";
+        }
+        else
+        {
+            x.style.display="none";
+
+        }
+    }
+</script>
+{% endblock stylecontent%}
+{% block blogcontent %}
+<center>
+
+</center>
+
+<div class="main-wrapper">
+    <section class="cta-section theme-bg-light py-2">
+		    <div class="container form-inline ">
+                <form method="get" action="/Blog/search" class=" signup-form form-inline justify-content-center pt-3" >
+                    <div class="form-group">
+                        <input type="search" id="search" name="search" class="form-control mr-md-1 semail" placeholder="Search Blog By Title">
+                    </div>
+                    <button class="btn btn-secondary">Search</button>
+                </form>
+            <!--    <form method="POST" class=" offset-lg-3 offset-mb-3 offset-sm-1">
+                    <p class="ml-2 mt-4">
+                        <a class="btn btn-outline-primary" data-toggle="collapse" href="#linkcollapse" aria-expanded="false" aria-controls="Collapse">Filter</a>
+                    </p>
+                    <div class="collapse position-absolute col-sm-4"  id="linkcollapse">
+                        <div class=" card position-absolute d-block p-3 "style="z-index:1;">
+                            <p>
+                                {% csrf_token%}
+                                <p class="">Filter by category:</p>
+                                {% for category in  categorys %}
+
+                                    <div class="form-check">
+                                      <label class="form-check-label text-justify">
+                                        <input type="checkbox" class="form-check-input" name="checks[]" value="1">{{category.Name}}
+                                      </label>
+                                    </div>
+
+                                {% endfor %}
+                                <p class="mt-4">
+                                    <a href="{% url 'FilterByCategory' %}" class="btn btn-info" name="checklist[]">Apply</a>
+                                    <a href="" class="btn btn-info">clear</a>
+                                </p>
+                            </p>
+                        </div>
+                    </div>
+                </form>  -->
+
+                <span class="mt-4 ml-3">
+                    {% for message in messages %}
+                        <p {% if message.tags %} class="alert alert-{{message.tags}} mb-3"{%endif%}>{{message}}</p>
+                    {% endfor %}
+                </span>
+
+		    </div><!--//container-->
+	    </section>
+
+    <section class="blog-list px-3 mt-3">
+		    <div class="container">
+                        {% for blog in blogs %}
+                           <div class="item mb-5">
+                              <div class="media shadow py-3 px-3">
+                                  <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="{{blog.image.url}}" alt="image">
+                                  <div class="media-body">
+                                      <h3 class="title mb-1"><a href="{% url 'Blog_Details' blog.id %}">{{blog.Titles}}</a></h3>
+                                      <div class="meta mb-1"><span class="date"><i class="far fa-clock mr-2"></i>{{blog.date_created|date:"M d,Y"}}</span><span class="time">{{blog.Category}}</span></div>
+                                      <div class="intro"> {{blog.content|safe|truncatewords:"50"|linebreaks}}</div>
+                                      <a class="more-link" href="{% url 'Blog_Details' blog.id %}">Read more &rarr;</a>
+                                  </div><!--//media-body-->
+                              </div><!--//media-->
+                          </div><!--//item-->
+                        {%endfor%}
+            </div>
+	    </section>
+    </div><!--//main-wrapper-->
+
+{% endblock blogcontent %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block Title %} Kiran Shinde {% endblock %} </title>
+    <link rel="stylesheet" href= "{% static 'Base/css/all.min.css' %}" >
+    <link rel="stylesheet" href= "{% static 'Base/css/bootstrap.min.css' %}" >
+    <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
+    {% block reference %}
+    {% endblock %}
+</head>
+<body>
+    {% include 'Base/Navbar.html' %}
+
+        {% block content %}
+
+        {% endblock %}<!--End Content Block -->
+
+
+
+    <!--Start Footer Block-->
+    {% block footer %}
+         {% include 'Base/Footer.html' %}
+    {% endblock %}<!--End Footer -->
+    <script src="{% static 'Base/js/jquery.js' %}"></script>
+    <script src="{% static 'Base/js/bootstrap.js' %}"></script>
+    <script src="{% static 'Base/js/popper.js' %}"></script>
+    <script src="{% static 'Base/js/all.min.js' %}"></script>
+    <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+{% block scripttab %}
+
+{% endblock %}
+</body>
+</html>

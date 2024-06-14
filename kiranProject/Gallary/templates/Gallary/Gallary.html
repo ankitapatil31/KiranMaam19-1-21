@@ -1,0 +1,33 @@
+{% extends 'Base/Base.html' %}
+{% load static %}
+{% block content %}
+
+    <!--Filter-->
+    <div class="d-flex justify-content-center mt-4" id="">
+        <div class="row  mt-5 mb-3">
+            <a href="/Gallary" class=" btn btn-dark">All</a>
+            {% for cate in categorys %}
+            <div class="mx-2">
+                <a href="/Gallary/?category={{cate.id}}" class=" btn btn-light">{{cate.category}}</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- All Image-->
+    <div class="container-fluid">
+        <div class="row mx-auto my-3">
+           {% for photo in photos %}
+             <div class="card mx-auto mb-3" style="width: 18rem;">
+              <img  height="300" class="card-img-top" src="{{ photo.image.url }}" alt="">
+                 <div class="container-fluid" style="">
+                     <div class="card-body">
+                  <h4 class="card-title"> {{ photo.title }}</h4>
+                  <p class="card-text"> {{ photo.description|truncatewords:"30"|linebreaks }}</p>
+              </div>
+                 </div>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

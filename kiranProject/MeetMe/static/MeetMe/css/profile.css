@@ -1,0 +1,70 @@
+
+   .card {
+    border: 0;
+    border-radius: .1875rem;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 25px 0 rgba(0,0,0,.2);
+}
+    .profile-image,.page-header{
+        min-height: 600px;
+    }
+   .page-header {
+    height: 70vh;
+    max-height: 600px;
+}
+    .profile-image{
+        background: linear-gradient(rgba(44,44,44,0.2), rgba(73, 160, 81, 0.6)), url("{{static/MeetMe/image/bg9.jpg}}");
+        max-height: 60vh;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .cc-profile-image img:hover{
+    transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+
+  .progress-container .progress-bar {
+    color:blue;
+    transform: scaleX(0);
+    transition: transform 2s ease-in-out;
+    transform-origin: 0% 0%;
+}
+.progress {
+    display: flex;
+    overflow: hidden;
+    font-size: .80rem;
+    line-height: 1rem;
+    text-align: center;
+    border-radius: .25rem;
+}
+.progress-container.progress-primary .progress-badge {
+    color:#3399ff;
+}
+.progress-container .progress .progress-value {
+    position: absolute;
+    top: 2px;
+    right: 16px;
+    color: #3399ff;
+    font-weight:bold;
+}
+.progress-bar {
+    line-height: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    transition: width .6s ease;
+}
+.progress-container .aos-animate {
+    transform: scaleX(1);
+}
+.cc-experience .cc-experience-header {
+    padding-top: 50px;
+    padding-right: 0;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+}

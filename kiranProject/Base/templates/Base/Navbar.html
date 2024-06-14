@@ -1,0 +1,39 @@
+
+<nav class="navbar navbar-expand-sm navbar-dark fixed-top " style="background-color: #2e2e30  ;">
+    <a class="navbar-brand" href="/"><b>Kiran Shind</b> </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'Profile_page' %}">Meet Me </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'Blog_Page' %}">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'Gallary_Photos' %}">Galllary</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'Publication_page' %}">Publications</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'MitraCoordinatorInformation_page' %}">Mitra Co-ordinator</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'GetInTouch_page' %}">Get In Touch</a>
+            </li>
+             {% if  request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'LogoutPage' %}">Logout</a>
+            </li>
+             {%else%}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'Login_Form' %}">LogIn</a>
+            </li>
+             {%endif%}
+            </ul>
+        </div>
+    </nav>

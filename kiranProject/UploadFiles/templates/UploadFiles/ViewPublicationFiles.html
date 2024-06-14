@@ -1,0 +1,30 @@
+{% extends 'Base/Base.html' %}
+{% load socialaccount %}
+{% load static %}
+{% block title %} Updata Experience {% endblock %}
+
+{% block reference %}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class=" col-sm-10 mx-auto mt-5">
+                 <table class="table table-hover table-dark ">
+                  {% for obj in ObjFile %}
+                  <tr>
+                      <td class="px-5">{{obj.title}}</td>
+                      <td class="text-right" >
+                           <a href="{{ obj.pdf.url }}" class="btn btn-primary btn-sm mr-3" target="_blank">
+                            View Document
+                          </a>
+                      </td>
+                  </tr>
+                  {%  endfor %}
+                 </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripttab %}
+{% endblock %}

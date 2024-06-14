@@ -1,0 +1,122 @@
+
+{% extends 'admin_blog/BlogBase.html' %}
+{% load static %}
+{%block stylecontent %}
+	<style>
+		html{overflow:none;}
+		.myborder{
+	 border:1px solid black;
+	animation:mymove 5s infinite;
+}
+@keyframes mymove{
+	50%{ border-left-width:15px; }
+}
+	</style>
+{% endblock stylecontent%}
+{% block blogcontent %}
+<div class="main-wrapper container">
+
+	<div class="row">
+			<div class="col-sm-8">
+				<header class="blog-post-header mt-3 px-2">
+				    <h2 class="title mb-2">{{blogs.Titles}}</h2>
+					<div class="meta mb-3"><span class="date">{{blogs.date_created|date:"M d,Y"}}</span><span class="time">{{blogs.Category}}</span><span class="comment"><a href="#Comment">comments</a></span><span class="review"><a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"> <input type="image" src="{% static 'admin_blog/Image/review.gif' %}" width="15" height="15" alt="Review"></a></span></div>
+					<figure class="blog-banner">
+				        <a href=""><img class="img-fluid" src="{{blogs.image.url}}" alt="image"></a>
+				        <figcaption class="mt-2 text-center image-caption"> <a href="" target="_blank"></a></figcaption>
+				    </figure>
+				</header>
+				<div class="blog-post-body">
+					{{blogs.content|safe}}
+				</div>
+			</div>
+			<form method="POST" action="{% url 'SendEmail' %}">
+				{% csrf_token %}
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">New message to Kiran Shinde</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				  </div>
+				  <div class="modal-body">
+					<form>
+					  <div class="form-group">
+						<label for="recipient-name" class="col-form-label">Recipient:</label>
+						<input type="email" class="form-control" id="recipient-name" name="Recipient" placeholder="Example: xyz@gmail.com" required>
+					  </div>
+					  <div class="form-group">
+						<label for="message-text" class="col-form-label">Message:</label>
+						<textarea class="form-control" id="message-text" name="message" placeholder="Message" required></textarea>
+					  </div>
+					</form>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<!--<a href="" class="btn btn-secondary">Send message</a>-->
+					  <input type="submit" name="submit">
+				  </div>
+				</div>
+			  </div>
+			</div>
+			</form>
+			<div class="col-sm-4">
+				<!-- Popular Blog -->
+					<div class=" mt-4 shadow">
+						<h5 class="text-center py-3 myborder "><span class="text-center">Popular Posts</span></h5>
+						<ul class="list-unstyled ">
+						  {% for blog in popularblog %}
+							<li class="media d-flex flex-wrap mx-3 my-3">
+							<img class="mr-3 img-fluid post-thumb rounded d-block w-25 h-25" src="{{blog.image.url}}" alt="Generic placeholder image">
+							<div class="media-body">
+								<a  class="" style="color:black;" href="{% url 'Blog_Details' blog.id %}"><b>{{blog.Titles}}</b></a>
+								<br><br>
+								<!--<a class="" href="#"><i class="fas fa-thumbs-up"></i>  23</a>
+								<a class="px-3" href="#"><i class="fas fa-thumbs-down"></i>  2</a> -->
+							 </div>
+						  </li>
+						  {%endfor%}
+						</ul>
+					</div>
+					<div class="container">
+
+					</div>
+			</div>
+		<!-- COmment Section -->
+			<section id="Comment" class="col-sm-8">
+				<h1 class="text-center ">Comments</h1>
+				<div class="container shadow mx-3">
+					<div class="row">
+						<div class="col-sm-5 col-md-6 col-12 pb-4">
+
+ 							{% for comment in comments %}
+							<div class="text-justify darker mt-4 "> <img src="https://i.imgur.com/CFpa3nK.jpg" alt="" class="rounded-circle" width="40" height="40">
+								<h4>{{comment.name}}</h4> <span>{{comment.createdate|date:"M d,Y"}}</span> <br>
+								<p>{{comment.Comment}}</p>
+							</div>
+							{% endfor %}
+						</div>
+						<div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
+							<form method="POST" action="{% url 'Add_Comment' blogs.id %}" id="align-form">
+								{% csrf_token %}
+								<div class="form-group">
+									<h4>Leave a comment</h4> <label for="">Message</label> <textarea name="msg" id="" msg cols="30" rows="5" class="form-control"></textarea>
+								</div>
+								<div class="form-group"> <label for="">Name</label> <input type="text" value="" name="name" id="fullname" class="form-control"> </div>
+								<div class="form-group"> <label for="email">Email</label> <input type="text" name="email" id="email" class="form-control"> </div>
+								{% if  request.user.is_authenticated %}
+										<input type="submit" name="submit" value="submit" class=" btn btn-secondary">
+								{% else %}
+									<div class="form-group"> <a class="btn btn-secondary" onclick="alert('Please Login First')">Post Comment</a> </div>
+								{% endif%}
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+</div><!--//main-wrapper-->
+
+{% endblock blogcontent %}
